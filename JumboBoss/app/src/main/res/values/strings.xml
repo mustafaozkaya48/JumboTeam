@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">JumboBoss</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_menu">Menü</string>
+    <string name="title_basket">Sepet</string>
+    <string name="title_orders">Siparişler</string>
 </resources>

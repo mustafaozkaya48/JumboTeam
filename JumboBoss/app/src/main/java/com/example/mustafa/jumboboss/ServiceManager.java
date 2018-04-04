@@ -13,6 +13,7 @@ public class ServiceManager {
     private static final String URL=""; //Servisin urlsi ve ornegin http://192.168.1.102:80/Service.asmx
 
 
+
     SoapObject soapObject;
     SoapSerializationEnvelope soapSerializationEnvelope;
     HttpTransportSE httpTransportSE;
