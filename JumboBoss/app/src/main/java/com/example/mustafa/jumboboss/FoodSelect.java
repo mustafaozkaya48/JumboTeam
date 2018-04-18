@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -27,6 +29,8 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Button;
+
+import static android.support.v4.content.ContextCompat.startActivity;
 
 
 public class FoodSelect extends Activity  {
@@ -44,7 +48,52 @@ public class FoodSelect extends Activity  {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_food_select);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-       /* navigation.setOnNavigationItemSelectedListener(Helper.mOnNavigationItemSelectedListener);*/
+
+        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_menu:
+
+                        return true;
+                    case R.id.navigation_basket:
+
+                        startActivity(new Intent(getApplicationContext(), Basket.class));
+
+
+
+                        return true;
+                    case R.id.navigation_orders:
+
+                        return true;
+                }
+                return false;
+            }
+        });
+         /*navigation.OnNavigationItemSelectedListener() {
+
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_menu:
+
+                        return true;
+                    case R.id.navigation_basket:
+
+                        startActivity(new Intent(getApplicationContext(), Basket.class));
+
+
+
+                        return true;
+                    case R.id.navigation_orders:
+
+                        return true;
+                }
+                return false;
+            }
+        };*/
+
+
 
 
         Bundle extras = getIntent().getExtras();
@@ -155,6 +204,8 @@ public class FoodSelect extends Activity  {
         }
 
     }
+
+
 
 
 

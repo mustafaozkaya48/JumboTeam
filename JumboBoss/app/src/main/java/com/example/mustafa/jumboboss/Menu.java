@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
@@ -23,6 +25,8 @@ public class Menu extends Activity {
     LayoutParams lp;
     Context context;
 
+
+    Intent intentBasket = new Intent(getApplicationContext(),Basket.class);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,9 +35,25 @@ public class Menu extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_menu);
-
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-       /* navigation.setOnNavigationItemSelectedListener(Helper.mOnNavigationItemSelectedListener);*/
+        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_menu:
+
+                        return true;
+                    case R.id.navigation_basket:
+                   startActivity(intentBasket);
+
+                          return true;
+                    case R.id.navigation_orders:
+
+                        return true;
+                }
+                return false;
+            }
+        });
 
 
 
