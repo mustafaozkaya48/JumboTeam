@@ -26,18 +26,13 @@ Context context;
      btnGiris=findViewById(R.id.btnGiris);
 
 
+     btnGiris.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View view) {
+           Intent gec = new Intent(getApplicationContext(),Menu.class);
+           startActivity(gec);
+         }
+     });
     }
 
-    public void Giris(View view){
-
-        //if (){  veritabanındaki değerle aynıysa
-
-        Intent intent = new Intent(this,Menu.class);
-        startActivity(intent);
-
-
-        //}
-
-
-    }
 }

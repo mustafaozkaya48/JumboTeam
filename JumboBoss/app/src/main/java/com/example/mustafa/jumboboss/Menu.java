@@ -26,7 +26,7 @@ public class Menu extends Activity {
     Context context;
 
 
-    Intent intentBasket = new Intent(getApplicationContext(),Basket.class);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,24 +36,8 @@ public class Menu extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_menu);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.navigation_menu:
 
-                        return true;
-                    case R.id.navigation_basket:
-                   startActivity(intentBasket);
 
-                          return true;
-                    case R.id.navigation_orders:
-
-                        return true;
-                }
-                return false;
-            }
-        });
 
 
 
@@ -135,8 +119,6 @@ public class Menu extends Activity {
 
 
 
-
-
         /*int j=0;
         int colmn=4;
         int size=20;
@@ -162,6 +144,27 @@ public class Menu extends Activity {
 
 
 
+        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_menu:
+
+                        return true;
+                    case R.id.navigation_basket:
+
+                        Intent intentBasket = new Intent(getApplicationContext(),Basket.class);
+
+                        startActivity(intentBasket);
+
+                        return true;
+                    case R.id.navigation_orders:
+
+                        return true;
+                }
+                return false;
+            }
+        });
 
 
         //servisten masa sayısını getirecek ona göre scroll view da buton oluşturacak. Butonlar oluşturulurken  bir satırda en fazla 5-6 buton olabilir gibi bişey yapmak lazım.
