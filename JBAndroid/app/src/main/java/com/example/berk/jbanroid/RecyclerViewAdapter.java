@@ -36,7 +36,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
 
         holder.tv_book_title.setText(mData.get(position).getTitle());
-        holder.img_book_thumbnail.setImageResource(mData.get(position).getThumbnail());
+        holder.img_book_thumbnail.setImageBitmap(mData.get(position).getThumbnail());
         holder.cardView.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -44,9 +44,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Intent intent = new Intent(mContext,Category_Activity.class);
 
                 //passing data to the book activity
-                intent.putExtra("Title",mData.get(position).getTitle());
-                intent.putExtra("Description",mData.get(position).getDescription());
-                intent.putExtra("Thumbnail",mData.get(position).getThumbnail());
+                intent.putExtra("Title",mData.get(position).getTitle());//Diğer Sayfasında Category Adı Göndönderildi
                 // start the activity
                 mContext.startActivity(intent);
             }
@@ -74,7 +72,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             tv_book_title = (TextView) itemView.findViewById(R.id.book_title_id);
             img_book_thumbnail = (ImageView) itemView.findViewById(R.id.book_img_id);
             cardView = (CardView) itemView.findViewById(R.id.cardview_id);
-
         }
     }
 

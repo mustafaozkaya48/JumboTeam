@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_menu"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/navigation_basket"
+
+        android:title="Sepet" />
+
+
+    <item
+        android:id="@+id/navigation_orders"
+        android:title="Siparişler" />
+</menu>

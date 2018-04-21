@@ -27,15 +27,13 @@ public class Category_Activity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String Title = intent.getExtras().getString("Title");
-        String Description= intent.getExtras().getString("Description");
-        int image =  intent.getExtras().getInt("Thumbnail");
+
 
 
         //settings values
 
         tvtitle.setText(Title);
-        tvdescription.setText(Description);
-        img.setImageResource(image);
+
 
         
 
