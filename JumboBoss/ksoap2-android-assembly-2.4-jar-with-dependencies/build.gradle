@@ -1,2 +1,5 @@
 configurations.maybeCreate("default")
 artifacts.add("default", file('ksoap2-android-assembly-2.4-jar-with-dependencies.jar'))
+dependencies {
+    testCompileOnly files('ksoap2-android-assembly-2.4-jar-with-dependencies.jar')
+}
