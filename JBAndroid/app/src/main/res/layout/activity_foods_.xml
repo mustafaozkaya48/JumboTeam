@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".Foods_Activity"
+    android:background="@android:color/white">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:background="@android:color/white"
+        android:theme="@style/AppTheme">
+
+   <android.support.design.widget.CollapsingToolbarLayout
+       android:layout_width="match_parent"
+       android:fitsSystemWindows="true"
+       app:contentScrim="?attr/colorPrimary"
+       app:expandedTitleTextAppearance="@android:color/transparent"
+       app:layout_scrollFlags="scroll|exitUntilCollapsed"
+       android:layout_height="250dp">
+
+       <ImageView
+           android:layout_width="match_parent"
+           android:layout_height="250dp"
+           android:background="@android:color/white"
+           android:contentDescription="@string/app_name"
+           android:fitsSystemWindows="true"
+           android:scaleType="centerCrop"
+           app:layout_collapseMode="parallax"
+           android:src="@drawable/maxresdefault" /> <!-- android:src="@drawable/Kategori resmi konulacak mesela çorbalar resmi"-->
+
+   </android.support.design.widget.CollapsingToolbarLayout>
+
+
+        </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:clipToPadding="true"
+        >
+
+         <android.support.v7.widget.RecyclerView
+             android:id="@+id/rv"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+         </android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

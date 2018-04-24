@@ -13,12 +13,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
+public class CategoryViewAdapter extends RecyclerView.Adapter<CategoryViewAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<Category> mData;
+    private List<CategoryModel> mData;
 
-    public RecyclerViewAdapter(Context mContext, List<Category> mData) {
+    public CategoryViewAdapter(Context mContext, List<CategoryModel> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
@@ -41,7 +41,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext,Category_Activity.class);
+                Intent intent = new Intent(mContext,Foods_Activity.class);
 
                 //passing data to the book activity
                 intent.putExtra("Title",mData.get(position).getTitle());//Diğer Sayfasında Category Adı Göndönderildi

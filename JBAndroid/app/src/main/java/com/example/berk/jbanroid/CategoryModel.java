@@ -2,7 +2,7 @@ package com.example.berk.jbanroid;
 
 import android.graphics.Bitmap;
 
-public class Category {
+public class CategoryModel {
 
     private String Title;
     private String Category;
@@ -44,12 +44,12 @@ public class Category {
     private Bitmap Thumbnail;
 
 
-    public Category() {
+    public CategoryModel() {
 
 
     }
 
-    public Category(String title, String category, String description, Bitmap thumbnail) {
+    public CategoryModel(String title, String category, String description, Bitmap thumbnail) {
         Title = title;
         Category = category;
         Description = description;
