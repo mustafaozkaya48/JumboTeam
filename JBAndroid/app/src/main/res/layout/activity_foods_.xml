@@ -31,7 +31,13 @@
            android:fitsSystemWindows="true"
            android:scaleType="centerCrop"
            app:layout_collapseMode="parallax"
-           android:src="@drawable/maxresdefault" /> <!-- android:src="@drawable/Kategori resmi konulacak mesela çorbalar resmi"-->
+           android:src="@drawable/maxresdefault" />
+
+       <Button
+           android:id="@+id/btnBack"
+           android:layout_width="100dp"
+           android:layout_height="91dp"
+           android:background="?attr/actionModeCloseDrawable" /> <!-- android:src="@drawable/Kategori resmi konulacak mesela çorbalar resmi"-->
 
    </android.support.design.widget.CollapsingToolbarLayout>
 

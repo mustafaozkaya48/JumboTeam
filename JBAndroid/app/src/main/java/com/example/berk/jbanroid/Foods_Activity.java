@@ -4,7 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
+import android.view.View;
+import android.widget.Button;
 import java.util.ArrayList;
 
 public class Foods_Activity extends AppCompatActivity {
@@ -23,7 +24,16 @@ public class Foods_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_foods_);
 
         recyclerView = findViewById(R.id.rv);
+        Button btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                finish();
+
+
+            }
+        });
         foodsList = new ArrayList<>();
 
         foodsList.add(new FoodModel(R.drawable.maxresdefault, "biryani","Karachi Savour","9"));

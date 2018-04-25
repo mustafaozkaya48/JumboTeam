@@ -1,6 +1,7 @@
 package com.example.berk.jbanroid;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,8 +11,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
+
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
 
@@ -41,7 +42,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         FoodModel foodItem = mList.get(position);
-        ImageView image = holder.item_image;
+        final ImageView image = holder.item_image;
         TextView name,place;
         final Button btn;
 
@@ -59,6 +60,11 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             @Override
             public void onClick(View view) {
                 Toast.makeText(mContext,""+ btn.getId(), Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(mContext,add_basket.class);
+            mContext.startActivity(intent);
+
+
             }
         });
 
