@@ -3,14 +3,21 @@ package com.example.berk.jbanroid;
 public class FoodModel {
 
     private int image;
-    private String name,place,price;
+    private String name,place,id;
 
+    public String getId() {
+        return id;
+    }
 
-    public FoodModel(int image, String name, String place, String price) {
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public FoodModel(int image, String name, String place, String id) {
         this.image = image;
         this.name = name;
         this.place = place;
-        this.price = price;
+        this.id = id;
     }
 
     public int getImage() {
@@ -37,11 +44,4 @@ public class FoodModel {
         this.place = place;
     }
 
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
 }

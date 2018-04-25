@@ -26,7 +26,7 @@ public class Foods_Activity extends AppCompatActivity {
 
         foodsList = new ArrayList<>();
 
-        foodsList.add(new FoodModel(R.drawable.maxresdefault, "biryani","Karachi Savour","4"));
+        foodsList.add(new FoodModel(R.drawable.maxresdefault, "biryani","Karachi Savour","9"));
         foodsList.add(new FoodModel(R.drawable.maxresdefault, "haleem","Chaman Savour","6"));
         foodsList.add(new FoodModel(R.drawable.maxresdefault, "chaat","Karachi Foods","3"));
         foodsList.add(new FoodModel(R.drawable.maxresdefault, "kare","Karachi Savour","7"));

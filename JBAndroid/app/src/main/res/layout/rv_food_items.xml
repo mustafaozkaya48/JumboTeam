@@ -43,7 +43,7 @@
         </LinearLayout>
 
 
-        <TextView
+        <Button
             android:id="@+id/item_price"
             android:background="@drawable/capsule"
             android:text="$ price"

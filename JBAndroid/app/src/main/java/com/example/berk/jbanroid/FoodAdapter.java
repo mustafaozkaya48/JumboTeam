@@ -1,14 +1,15 @@
 package com.example.berk.jbanroid;
 
 import android.content.Context;
-import android.graphics.ColorSpace;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -41,18 +42,25 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
 
         FoodModel foodItem = mList.get(position);
         ImageView image = holder.item_image;
-        TextView name,place,price;
+        TextView name,place;
+        final Button btn;
 
         name = holder.item_name;
         place = holder.item_place;
-        price = holder.item_price;
+        btn = holder.btn;
 
         image.setImageResource(foodItem.getImage());
 
         name.setText(foodItem.getName());
         place.setText(foodItem.getPlace());
-        price.setText(foodItem.getPrice());
-
+        btn.setId(Integer.parseInt(foodItem.getId()));
+        btn.setText("Sepete Ekle");
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(mContext,""+ btn.getId(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
@@ -64,7 +72,8 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     public class ViewHolder extends  RecyclerView.ViewHolder{
 
         ImageView item_image;
-        TextView item_name,item_place,item_price;
+        TextView item_name,item_place;
+        Button btn;
 
         public ViewHolder(View itemView) {
 
@@ -72,7 +81,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             item_image = itemView.findViewById(R.id.item_image);
             item_name = itemView.findViewById(R.id.item_name);
             item_place = itemView.findViewById(R.id.item_place);
-            item_price = itemView.findViewById(R.id.item_price);
+            btn = itemView.findViewById(R.id.item_price);
 
 
 
