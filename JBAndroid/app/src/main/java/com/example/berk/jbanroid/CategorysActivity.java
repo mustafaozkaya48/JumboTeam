@@ -2,58 +2,91 @@ package com.example.berk.jbanroid;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
-import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CategorysActivity extends AppCompatActivity {
 
     List<CategoryModel> lstCategoryModel;
-
-
-
-
+    Database db;
+    String[] list;
+    JSONArray jsonArray;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categorys);
-        lstCategoryModel = new ArrayList<>();
-        byte[] img = Base64.decode("", Base64.DEFAULT);//VeriTanabınından gelen foto değeri gir
-        lstCategoryModel.add(new CategoryModel("The Vegitarian","Categorie","Description category", BitmapFactory.decodeByteArray(img, 0, img.length))); // '0' yazan yere draweble klasörünün içindeki resim gelmesi gerekior.
-        lstCategoryModel.add(new CategoryModel("The Wild Robot","Categorie","Description category",BitmapFactory.decodeByteArray(img, 0, img.length))); // '0' yazan yere draweble klasörünün içindeki resim gelmesi gerekior.
-        lstCategoryModel.add(new CategoryModel("Maria Semples","Categorie","Description category",BitmapFactory.decodeByteArray(img, 0, img.length))); // '0' yazan yere draweble klasörünün içindeki resim gelmesi gerekior.
-        lstCategoryModel.add(new CategoryModel("The Martian","Categorie","Description category",BitmapFactory.decodeByteArray(img, 0, img.length))); // '0' yazan yere draweble klasörünün içindeki resim gelmesi gerekior.
-        lstCategoryModel.add(new CategoryModel("He Died with...","Categorie","Description category",BitmapFactory.decodeByteArray(img, 0, img.length))); // '0' yazan yere draweble klasörünün içindeki resim gelmesi gerekior.
-        lstCategoryModel.add(new CategoryModel("The Vegitarian","Categorie","Description category",BitmapFactory.decodeByteArray(img, 0, img.length))); // '0' yazan yere draweble klasörünün içindeki resim gelmesi gerekior.
-        lstCategoryModel.add(new CategoryModel("The Wild Robot","Categorie","Description category",BitmapFactory.decodeByteArray(img, 0, img.length))); // '0' yazan yere draweble klasörünün içindeki resim gelmesi gerekior.
-        lstCategoryModel.add(new CategoryModel("Maria Semples","Categorie","Description category",BitmapFactory.decodeByteArray(img, 0, img.length))); // '0' yazan yere draweble klasörünün içindeki resim gelmesi gerekior.
-        lstCategoryModel.add(new CategoryModel("The Martian","Categorie","Description category",BitmapFactory.decodeByteArray(img, 0, img.length))); // '0' yazan yere draweble klasörünün içindeki resim gelmesi gerekior.
-        lstCategoryModel.add(new CategoryModel("He Died with...","Categorie","Description category",BitmapFactory.decodeByteArray(img, 0, img.length))); // '0' yazan yere draweble klasörünün içindeki resim gelmesi gerekior.
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
-
-        RecyclerView myrv = (RecyclerView) findViewById(R.id.recyclerview_id);
+        db = new Database(getApplicationContext());
+        list=db.GetParameter();
+        lstCategoryModel =FromJSONtoArrayList();
+        RecyclerView myrv = (RecyclerView)findViewById(R.id.recyclerview_id);
         CategoryViewAdapter myAdapter = new CategoryViewAdapter(this, lstCategoryModel);
-        myrv.setLayoutManager(new GridLayoutManager(this,3));
+        myrv.setLayoutManager(new GridLayoutManager(this,4));
         myrv.setAdapter(myAdapter);
+    }
+    public List<CategoryModel> FromJSONtoArrayList() {
+        lstCategoryModel= new ArrayList<>();
+        String line=null;
+        try {
+
+            // Replace it with your own WCF service path
+            URL json = new URL(list[0]+"/ServiceJB.svc/GetListCategory");
+            URLConnection jc = json.openConnection();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(jc.getInputStream()));
+            line = reader.readLine();
+            jsonArray = new JSONArray(line);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jObject = (JSONObject)jsonArray.get(i);
+                Bitmap bmp=null;
+
+                if (jObject.getString("Img")!=""){
+                    URL url = new URL(list[0]+"/"+jObject.getString("Img"));
+                    bmp   = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                }
+
+
+
+
+               //Toast.makeText(this, ""+jObject.getString("Img"), Toast.LENGTH_SHORT).show();
+                 lstCategoryModel.add(new CategoryModel(jObject.getString("CategoryName"),jObject.getString("CategoryName"),jObject.getString("CategoryName"),bmp));
+            }
+
+            reader.close();
+
+        } catch(Exception e){
+            Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
+        }
+
+        return lstCategoryModel;
     }
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.setting, menu);
-
         return true;
     }
-
-
     String m_Text = "";
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -71,7 +104,7 @@ public class CategorysActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         m_Text = input.getText().toString();
                         if (m_Text.equals("01")){
-                          Intent setting = new Intent(getApplicationContext(),SettingsActivity.class);
+                          Intent setting = new Intent(getApplicationContext(),Setting.class);
                           startActivity(setting);
                         }
                         else   Toast.makeText(CategorysActivity.this, "Yanlış", Toast.LENGTH_SHORT).show();
@@ -88,7 +121,7 @@ public class CategorysActivity extends AppCompatActivity {
                 builder.show();
 
                 return true;
-            default:
+                 default:
                 return super.onOptionsItemSelected(item);
         }
     }

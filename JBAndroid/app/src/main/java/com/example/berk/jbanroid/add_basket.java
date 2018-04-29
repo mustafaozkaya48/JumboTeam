@@ -1,49 +1,82 @@
 package com.example.berk.jbanroid;
 
-import android.app.Activity;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.NumberPicker;
-import android.widget.Toast;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 public class add_basket extends AppCompatActivity {
+
+    Button Arttir,Azalt,Cikis,SepeteEkle;
+    EditText Sayisi;
+    TextView UrunAdi,UrunAciklama;
+    Spinner Porsiyon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_basket);
-        FloatingActionButton btnExit = findViewById(R.id.addbasket_btn_exit);
+        ButtonAyarları(this);
+        Porsiyonlar(this);
+    }
 
-        NumberPicker np = findViewById(R.id.numberPicker);
+   public void Porsiyonlar(add_basket view){
+   String Porsiyonlar[] = {"1 Porsiyon 15 TL","1.5 Porsiyon 20 TL"};
 
-        np.setMinValue(1);
-        np.setMaxValue(99);
+       Porsiyon=findViewById(R.id.spinnerPosiyon);
+       ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, Porsiyonlar);
+       spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+       Porsiyon.setAdapter(spinnerArrayAdapter);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            Porsiyon.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        }
 
-        np.setOnValueChangedListener(onValueChangeListener);
-        btnExit.setOnClickListener(new View.OnClickListener() {
+
+
+   }
+        public  void ButtonAyarları(add_basket view){
+            SepeteEkle=findViewById(R.id.buttonEkle);
+         SepeteEkle.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+
+             }
+         });
+        Cikis=findViewById(R.id.buttonExit);
+        Sayisi=findViewById(R.id.editTextSayi);
+        Arttir=findViewById(R.id.buttonArttir);
+        Azalt=findViewById(R.id.buttonAzalt);
+        Cikis.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
+            public void onClick(View view) {
                 finish();
-
-
+            }
+        });
+        Arttir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(Integer.parseInt(Sayisi.getText().toString())<20){
+                    int Sayi=Integer.parseInt(Sayisi.getText().toString())+1;
+                    Sayisi.setText(""+Sayi);
+                }
+            }
+        });
+        Azalt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(Integer.parseInt(Sayisi.getText().toString())>1){
+                    int Sayi=Integer.parseInt(Sayisi.getText().toString())-1;
+                    Sayisi.setText(""+Sayi);
+                }
             }
         });
 
-
     }
 
-
-    NumberPicker.OnValueChangeListener onValueChangeListener =
-            new 	NumberPicker.OnValueChangeListener(){
-                @Override
-                public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-                    Toast.makeText(add_basket.this,
-                            "selected number "+numberPicker.getValue(), Toast.LENGTH_SHORT);
-                }
-            };
 }

@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CategorysActivity"
+    android:background="@android:color/background_dark"
     android:padding="8dp"
-    >
+    tools:context=".CategorysActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview_id"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"> </android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
 
 </LinearLayout>

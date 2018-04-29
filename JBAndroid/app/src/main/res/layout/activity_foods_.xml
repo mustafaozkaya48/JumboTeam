@@ -24,14 +24,15 @@
        android:layout_height="250dp">
 
        <ImageView
+           android:id="@+id/CategoryImg"
            android:layout_width="match_parent"
            android:layout_height="250dp"
-           android:background="@android:color/white"
+           android:background="@android:color/holo_orange_dark"
            android:contentDescription="@string/app_name"
            android:fitsSystemWindows="true"
-           android:scaleType="centerCrop"
-           app:layout_collapseMode="parallax"
-           android:src="@drawable/maxresdefault" />
+           android:scaleType="fitXY"
+           android:src="@android:color/holo_orange_light"
+           app:layout_collapseMode="parallax" />
 
        <Button
            android:id="@+id/btnBack"

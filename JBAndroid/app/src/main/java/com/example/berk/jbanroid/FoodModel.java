@@ -1,8 +1,10 @@
 package com.example.berk.jbanroid;
 
+import android.graphics.Bitmap;
+
 public class FoodModel {
 
-    private int image;
+    private Bitmap image;
     private String name,place,id;
 
     public String getId() {
@@ -13,20 +15,22 @@ public class FoodModel {
         this.id = id;
     }
 
-    public FoodModel(int image, String name, String place, String id) {
+    public Bitmap getImage() {
+        return image;
+    }
+
+    public void setImage(Bitmap image) {
+        this.image = image;
+    }
+
+    public FoodModel(Bitmap image, String name, String place, String id) {
         this.image = image;
         this.name = name;
         this.place = place;
         this.id = id;
     }
 
-    public int getImage() {
-        return image;
-    }
 
-    public void setImage(int image) {
-        this.image = image;
-    }
 
     public String getName() {
         return name;

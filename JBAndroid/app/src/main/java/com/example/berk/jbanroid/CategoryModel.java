@@ -49,11 +49,11 @@ public class CategoryModel {
 
     }
 
-    public CategoryModel(String title, String category, String description, Bitmap thumbnail) {
+    public CategoryModel(String title, String category, String description, Bitmap ImageUrl) {
         Title = title;
         Category = category;
         Description = description;
-        Thumbnail = thumbnail;
+        Thumbnail = ImageUrl;
     }
 
 

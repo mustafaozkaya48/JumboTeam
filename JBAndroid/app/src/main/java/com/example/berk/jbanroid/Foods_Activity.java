@@ -1,73 +1,108 @@
 package com.example.berk.jbanroid;
 
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 
 public class Foods_Activity extends AppCompatActivity {
-
-    /*private TextView tvtitle,tvdescription,tvcategory;
-    private ImageView img;*/
-
+    Bundle extars;
     RecyclerView recyclerView;
-
-
+    Database db;
+    String[] list;
     ArrayList<FoodModel> foodsList;
-
+    ImageView categoryImage;
+    JSONArray jsonArray;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foods_);
-
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        categoryImage=findViewById(R.id.CategoryImg);
         recyclerView = findViewById(R.id.rv);
+        db = new Database(getApplicationContext());
+        list=db.GetParameter();
         Button btnBack = findViewById(R.id.btnBack);
+        extars=getIntent().getExtras();
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) { finish();  }
+        });
+        GetCategoryimg();
+        GetProducts();
+    }
 
-                finish();
+    private void GetCategoryimg() {
+        String line=null;
+        try {URL json = new URL(list[0]+"/ServiceJB.svc/GetCategoryImage/"+extars.getString("Title")+"");
+            URLConnection jc = json.openConnection();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(jc.getInputStream()));
+            line = reader.readLine();
+            if (line!=""){
+                Bitmap bmp=null;
+                URL url = new URL(list[0]+"/"+line.substring(1,line.length()-1));
+                bmp   = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                categoryImage.setImageBitmap(bmp);
+            }
+            reader.close();
+        } catch(Exception e){
+            Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
+        }
+    }
 
+    public void GetProducts(){
+        foodsList = new ArrayList<>();
+        String line=null;
+        try {
+
+            URL json = new URL(list[0]+"/ServiceJB.svc/GetProductListByCategoryName/"+extars.getString("Title")+"");
+            URLConnection jc = json.openConnection();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(jc.getInputStream()));
+            line = reader.readLine();
+            jsonArray = new JSONArray(line);
+            for (int i =0 ; i < jsonArray.length(); i++){
+                JSONObject jo= (JSONObject)jsonArray.get(i);
+                Bitmap bmp=null;
+
+                if (jo.getString("Img")!=""){
+                    URL url = new URL(list[0]+"/"+jo.getString("Img"));
+                    bmp   = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                }
+
+             foodsList.add(new FoodModel(bmp,jo.getString("ProductName"),jo.getString("ProductAbout"),jo.getString("Id")));
 
             }
-        });
-        foodsList = new ArrayList<>();
-
-        foodsList.add(new FoodModel(R.drawable.maxresdefault, "biryani","Karachi Savour","9"));
-        foodsList.add(new FoodModel(R.drawable.maxresdefault, "haleem","Chaman Savour","6"));
-        foodsList.add(new FoodModel(R.drawable.maxresdefault, "chaat","Karachi Foods","3"));
-        foodsList.add(new FoodModel(R.drawable.maxresdefault, "kare","Karachi Savour","7"));
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        RecyclerView.LayoutManager rvLiLayoutManager = linearLayoutManager;
-        recyclerView.setLayoutManager(rvLiLayoutManager);
-
-        FoodAdapter adapter = new FoodAdapter(this,foodsList);
-
-        recyclerView.setAdapter(adapter);
+            reader.close();
 
 
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+            RecyclerView.LayoutManager rvLiLayoutManager = linearLayoutManager;
+            recyclerView.setLayoutManager(rvLiLayoutManager);
+            FoodAdapter adapter = new FoodAdapter(this,foodsList);
+            recyclerView.setAdapter(adapter);
 
-       /* tvtitle = (TextView) findViewById(R.id.txttitle);
-        tvdescription = (TextView) findViewById(R.id.txtDesc);
-        tvcategory = (TextView) findViewById(R.id.txtCat);
-        img=(ImageView) findViewById(R.id.categorythumbnail);
-        //Recieve Data
-
-        Intent intent = getIntent();
-        String Title = intent.getExtras().getString("Title");*/
-
-
-
-        //settings values
-
-       /* tvtitle.setText(Title);*/
-
-
-        
-
+        } catch(Exception e){
+            Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
+        }
     }
+
+
+
 }

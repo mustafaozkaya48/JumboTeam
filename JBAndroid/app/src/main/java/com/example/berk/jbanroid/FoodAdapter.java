@@ -50,7 +50,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         place = holder.item_place;
         btn = holder.btn;
 
-        image.setImageResource(foodItem.getImage());
+        image.setImageBitmap(foodItem.getImage());
 
         name.setText(foodItem.getName());
         place.setText(foodItem.getPlace());
@@ -60,11 +60,8 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             @Override
             public void onClick(View view) {
                 Toast.makeText(mContext,""+ btn.getId(), Toast.LENGTH_SHORT).show();
-
             Intent intent = new Intent(mContext,add_basket.class);
             mContext.startActivity(intent);
-
-
             }
         });
 
@@ -80,18 +77,12 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         ImageView item_image;
         TextView item_name,item_place;
         Button btn;
-
         public ViewHolder(View itemView) {
-
             super(itemView);
             item_image = itemView.findViewById(R.id.item_image);
             item_name = itemView.findViewById(R.id.item_name);
             item_place = itemView.findViewById(R.id.item_place);
             btn = itemView.findViewById(R.id.item_price);
-
-
-
-
         }
     }
 
