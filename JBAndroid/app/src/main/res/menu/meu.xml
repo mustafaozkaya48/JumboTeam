@@ -9,10 +9,12 @@
     <item
         android:id="@+id/navigation_basket"
 
+        android:icon="@drawable/sepet"
         android:title="Sepet" />
 
 
     <item
         android:id="@+id/navigation_orders"
+        android:icon="@drawable/ic_dashboard_black_24dp"
         android:title="Siparişler" />
 </menu>

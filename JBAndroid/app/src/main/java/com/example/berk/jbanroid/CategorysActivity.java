@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -37,6 +39,41 @@ public class CategorysActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categorys);
+        BaglantiAyarlar(this);
+        AltMenu(this);
+
+    }
+    public void AltMenu(CategorysActivity view){
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_menu:
+
+                        return true;
+                    case R.id.navigation_basket:
+
+                        Intent intentBasket = new Intent(getApplicationContext(),Basket.class);
+
+
+                        startActivity(intentBasket);
+
+
+                        return true;
+                    case R.id.navigation_orders:
+                        Intent intentOrders = new Intent(getApplicationContext(),Orders.class);
+
+
+                        startActivity(intentOrders);
+
+                        return true;
+                }
+                return false;
+            }
+        });
+    }
+    public void BaglantiAyarlar(CategorysActivity view){
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -47,6 +84,9 @@ public class CategorysActivity extends AppCompatActivity {
         CategoryViewAdapter myAdapter = new CategoryViewAdapter(this, lstCategoryModel);
         myrv.setLayoutManager(new GridLayoutManager(this,4));
         myrv.setAdapter(myAdapter);
+
+
+
     }
     public List<CategoryModel> FromJSONtoArrayList() {
         lstCategoryModel= new ArrayList<>();
