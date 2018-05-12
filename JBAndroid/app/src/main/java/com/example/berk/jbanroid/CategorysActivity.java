@@ -50,23 +50,14 @@ public class CategorysActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.navigation_menu:
-
                         return true;
                     case R.id.navigation_basket:
-
                         Intent intentBasket = new Intent(getApplicationContext(),Basket.class);
-
-
                         startActivity(intentBasket);
-
-
                         return true;
                     case R.id.navigation_orders:
                         Intent intentOrders = new Intent(getApplicationContext(),Orders.class);
-
-
                         startActivity(intentOrders);
-
                         return true;
                 }
                 return false;

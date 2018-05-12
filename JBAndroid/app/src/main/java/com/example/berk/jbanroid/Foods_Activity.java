@@ -7,8 +7,6 @@ import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -29,6 +27,7 @@ public class Foods_Activity extends AppCompatActivity {
     ArrayList<FoodModel> foodsList;
     ImageView categoryImage;
     JSONArray jsonArray;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,16 +38,13 @@ public class Foods_Activity extends AppCompatActivity {
         recyclerView = findViewById(R.id.rv);
         db = new Database(getApplicationContext());
         list=db.GetParameter();
-        Button btnBack = findViewById(R.id.btnBack);
+
         extars=getIntent().getExtras();
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { finish();  }
-        });
         GetCategoryimg();
         GetProducts();
-    }
 
+
+    }
     private void GetCategoryimg() {
         String line=null;
         try {URL json = new URL(list[0]+"/ServiceJB.svc/GetCategoryImage/"+extars.getString("Title")+"");

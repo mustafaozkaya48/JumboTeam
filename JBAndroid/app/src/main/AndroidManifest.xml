@@ -17,17 +17,35 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".Foods_Activity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:label="İçerik Menüsü"
+            >
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.berk.jbanroid.Basket" />
+        </activity>
         <activity
             android:name=".add_basket"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".Setting" />
+        <activity android:name=".Setting"  />
         <activity
-            android:name=".Basket"             />
-        <activity android:name=".Orders"></activity>
+            android:name=".Basket"
+            android:label="Sepet" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.berk.jbanroid.Basket" />
+
+        </activity>
+        <activity android:name=".Orders" android:label="Siparişler">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.berk.jbanroid.Orders" />
+        </activity>
     </application>
 
 </manifest>

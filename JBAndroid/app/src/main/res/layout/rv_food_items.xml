@@ -10,14 +10,14 @@
         android:weightSum="10"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        
+
         <ImageView
             android:id="@+id/item_image"
             android:layout_width="0dp"
-            android:layout_weight="4"
             android:layout_height="128dp"
+            android:layout_weight="4"
             android:scaleType="centerCrop"
-            android:src="@drawable/maxresdefault"/>
+            android:src="@drawable/maxresdefault" />
         
         <LinearLayout
             android:paddingLeft="10dp"

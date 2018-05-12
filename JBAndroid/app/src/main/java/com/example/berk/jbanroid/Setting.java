@@ -19,7 +19,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.Arrays;
 
         public class Setting extends AppCompatActivity {
             Spinner spinner;
@@ -29,35 +28,38 @@ import java.util.Arrays;
             String[] list;
             String Tables[];
             JSONArray jsonArray;
+
             @Override
             protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_setting);
+                try {
+                    db = new Database(getApplicationContext());
+                    list=db.GetParameter();
+                    etConString=findViewById(R.id.setting_et_ConString);
+                    btnSave = findViewById(R.id.buttonSave);
+                    spinner =findViewById(R.id.spinner);
+                    etConString.setText(list[0]);
+                    if (list[0].length()>0){
+                        TablesAdaptor();
+                    }
 
 
 
+                    Button btnChange =findViewById(R.id.BtnChange);
+                    btnChange.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            etConString.setEnabled(true);
+                        }
+                    });
+
+                    SaveChange(this);
 
 
+                }catch (Exception ex){
 
-
-                db = new Database(getApplicationContext());
-        list=db.GetParameter();
-        etConString=findViewById(R.id.setting_et_ConString);
-        btnSave = findViewById(R.id.buttonSave);
-        spinner =findViewById(R.id.spinner);
-        etConString.setText(list[0]);
-        TablesAdaptor();
-        int indexOf = ArrayUtils.indexOf(Tables, list[1]);
-        Button btnChange =findViewById(R.id.BtnChange);
-        btnChange.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                etConString.setEnabled(true);
-            }
-        });
-
-        SaveChange(this);
-       spinner.setSelection(indexOf);
+                }
 
 
     }
@@ -83,26 +85,33 @@ import java.util.Arrays;
             }
 
             reader.close();
+            if (Tables.length>0){
+                ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_dropdown_item, Tables);
+                spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+                spinner.setAdapter(spinnerArrayAdapter);
+                int indexOf = ArrayUtils.indexOf(Tables, list[1]);
+                spinner.setSelection(indexOf);
+            }
 
         } catch(Exception e){
             Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
         }
-        Toast.makeText(this, ""+ Arrays.toString(Tables), Toast.LENGTH_SHORT).show();
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_dropdown_item, Tables);
-        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
-        spinner.setAdapter(spinnerArrayAdapter);
+
+
+
     }
     public void SaveChange(Setting view){
       btnSave.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-
               db.resetTables();
               db.AddParameter(etConString.getText().toString());
-              Toast.makeText(Setting.this, ""+spinner.getSelectedItem(), Toast.LENGTH_SHORT).show();
+              if (spinner.getSelectedItem().toString().length()>0){
               db.AddParameter(spinner.getSelectedItem().toString());
+              }
 
-
+              Toast.makeText(Setting.this, "Değişiklikler Kayıt edildi.", Toast.LENGTH_SHORT).show();
+              finish();
           }
       });
     }

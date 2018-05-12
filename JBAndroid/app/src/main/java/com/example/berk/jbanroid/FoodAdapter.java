@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import java.util.ArrayList;
 
 
@@ -23,6 +23,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     FoodAdapter(Context context, ArrayList<FoodModel> list){
         mContext = context;
         mList = list;
+
     }
 
     @NonNull
@@ -41,7 +42,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        FoodModel foodItem = mList.get(position);
+        final FoodModel foodItem = mList.get(position);
         final ImageView image = holder.item_image;
         TextView name,place;
         final Button btn;
@@ -59,8 +60,10 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext,""+ btn.getId(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(mContext,add_basket.class);
+            intent.putExtra("ProductId",btn.getId());
+            intent.putExtra("ProductName",foodItem.getName());
+            intent.putExtra("ProductAbout",foodItem.getPlace());
             mContext.startActivity(intent);
             }
         });
@@ -85,5 +88,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             btn = itemView.findViewById(R.id.item_price);
         }
     }
+
 
 }
